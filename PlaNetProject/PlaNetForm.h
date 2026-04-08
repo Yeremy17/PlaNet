@@ -48,11 +48,17 @@ namespace PlaNetProject {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->components = gcnew System::ComponentModel::Container();
-			this->Size = System::Drawing::Size(300,300);
-			this->Text = L"PlaNetForm";
-			this->Padding = System::Windows::Forms::Padding(0);
+			this->SuspendLayout();
+			// 
+			// PlaNetForm
+			// 
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->ClientSize = System::Drawing::Size(338, 302);
+			this->Name = L"PlaNetForm";
+			this->Text = L"PlaNetForm";
+			this->ResumeLayout(false);
+
 		}
 #pragma endregion
 	};
