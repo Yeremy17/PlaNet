@@ -19,11 +19,10 @@
 Debug/
 Release/
 x64/
-/x64/Debug
 x86/
 bin/
 obj/
-/PlaNetProject/x64/Debug
+git rm -r --cached .vs
 
 # Archivos temporales de compilación
 *.log
