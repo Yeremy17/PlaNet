@@ -121,11 +121,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ciudad.cpp" />
+    <ClCompile Include="Grafo.cpp" />
     <ClCompile Include="Matriz.cpp" />
     <ClCompile Include="PlaNetForm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ciudad.h" />
+    <ClInclude Include="Grafo.h" />
     <ClInclude Include="Matriz.h" />
     <ClInclude Include="PlaNetForm.h">
       <FileType>CppForm</FileType>
