@@ -60,7 +60,7 @@ namespace PlaNetProject {
 			this->lblPlaNet->AutoSize = true;
 			this->lblPlaNet->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 72, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->lblPlaNet->Location = System::Drawing::Point(530, 19);
+			this->lblPlaNet->Location = System::Drawing::Point(488, 291);
 			this->lblPlaNet->Name = L"lblPlaNet";
 			this->lblPlaNet->Size = System::Drawing::Size(332, 108);
 			this->lblPlaNet->TabIndex = 0;
@@ -73,7 +73,7 @@ namespace PlaNetProject {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1379, 685);
 			this->Controls->Add(this->lblPlaNet);
-			this->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->Margin = System::Windows::Forms::Padding(2);
 			this->Name = L"PlaNetForm";
 			this->Text = L"PlaNetForm";
 			this->Load += gcnew System::EventHandler(this, &PlaNetForm::PlaNetForm_Load);

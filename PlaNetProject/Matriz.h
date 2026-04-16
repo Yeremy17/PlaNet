@@ -14,8 +14,8 @@ public:
     Matriz(int n);
     ~Matriz();
 
-    void set(int i, int j, int valor);
-    int get(int i, int j);
+    void setBinario(int i, int j, int valor);
+    int getBinario(int i, int j);
 
     int getSize();
 
