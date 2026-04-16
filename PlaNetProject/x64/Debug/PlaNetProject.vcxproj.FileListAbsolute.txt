@@ -1,1 +1,4 @@
 C:\Users\Yeremy\Downloads\PlaNet\PlaNetProject\PlaNetProject\x64\Debug\PlaNetProject.vcxproj.AssemblyReference.cache
+C:\Users\Melissa OM\source\repos\PlaNet2\PlaNetProject\x64\Debug\PlaNetProject.vcxproj.AssemblyReference.cache
+C:\Users\Melissa OM\source\repos\PlaNet2\PlaNetProject\x64\Debug\PlaNetProject.PlaNetForm.resources
+C:\Users\Melissa OM\source\repos\PlaNet2\PlaNetProject\x64\Debug\PlaNetProject.vcxproj.GenerateResource.cache

@@ -57,9 +57,12 @@ namespace PlaNetProject {
 			this->ClientSize = System::Drawing::Size(338, 302);
 			this->Name = L"PlaNetForm";
 			this->Text = L"PlaNetForm";
+			this->Load += gcnew System::EventHandler(this, &PlaNetForm::PlaNetForm_Load);
 			this->ResumeLayout(false);
 
 		}
 #pragma endregion
+	private: System::Void PlaNetForm_Load(System::Object^ sender, System::EventArgs^ e) {
+	}
 	};
 }
