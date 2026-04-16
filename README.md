@@ -2,7 +2,7 @@
 # Authors
 
 ### SAMUEL
-### MELISSA
-### YEREMY
-#### SALVADOR
-## JACK
+# MELISSA
+## YEREMY
+##### SALVADOR
+# JACK
