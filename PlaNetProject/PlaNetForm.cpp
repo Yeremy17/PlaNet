@@ -3,6 +3,7 @@
 #include "PlaNetForm.h"
 #include "Matriz.h"
 #include "Ciudad.h"
+#include "Grafo.h"
 
 
 using namespace System;
@@ -18,56 +19,56 @@ void main()
 	freopen_s(&fp, "CONIN$", "r", stdin);
 
 
-
-
-
-
-
+    /// ->
 
 	//BORRA DSPS ES PRUEBA DE CONSOLITA
-	std::cout << "Consola activa!" << std::endl;
+    cout << "=== PRUEBA PLANET ===" << endl;
 
-	cout << "=== PRUEBA MATRIZ + CIUDADES ===" << endl;
+    // 1. Crear grafo con capacidad
+    Grafo* g = new Grafo(20);
 
-	Ciudad* c = new Ciudad(10);
+    // 2. Agregar ciudades
+    g->agregarNombreCiudad("Lima");
+    g->agregarNombreCiudad("Cusco");
+    g->agregarNombreCiudad("Arequipa");
+    g->agregarNombreCiudad("Bogota");
+    g->agregarNombreCiudad("Madrid");
 
-	c->agregarCiudad("Lima");
-	c->agregarCiudad("Cusco");
-	c->agregarCiudad("Arequipa");
+    // 3. Agregar rutas (relaciones binarias)
+    g->agregarRuta("Lima", "Cusco");
+    g->agregarRuta("Cusco", "Bogota");
+    g->agregarRuta("Bogota", "Madrid");
+    g->agregarRuta("Lima", "Arequipa");
 
-	cout << "Indice Lima: " << c->buscarIndiceDeCiudad("Lima") << endl;
-	cout << "Indice Cusco: " << c->buscarIndiceDeCiudad("Cusco") << endl;
+    cout << "\n--- PRUEBAS ---\n";
 
-	Matriz* m = new Matriz(10);
+    // 4. Vuelo directo
+    cout << "Existe Lima -> Cusco directo...... ";
+    cout << (g->existeVueloDirecto("Lima", "Cusco") ? "SI" : "NO") << endl;
 
-	int i = c->buscarIndiceDeCiudad("Lima");
-	int j = c->buscarIndiceDeCiudad("Cusco");
+    // 5. Una escala
+    cout << "Existe Lima -> Bogota con 1 escala..... ";
+    cout << (g->existeUnaEscala("Lima", "Bogota") ? "SI" : "NO") << endl;
 
-	m->setBinario(i, j, 1);
-	m->setBinario(j, i, 1);
+    // 6. Dos escalas
+    cout << "Existe Lima -> Madrid con 2 escalas........ ";
+    cout << (g->existeDosEscalas("Lima", "Madrid") ? "SI" : "NO") << endl;
 
-	cout << "\nMatriz:\n";
+    // 7. Mostrar ruta con una escala
+    cout << "\nRuta Lima -> Bogota (1 escala):\n";
+    cout << g->obtenerRutaUnaEscala("Lima", "Bogota") << endl;
 
-	for (int fila = 0; fila < c->getCantidad(); fila++)
-	{
-		for (int col = 0; col < c->getCantidad(); col++)
-		{
-			cout << m->getBinario(fila, col) << " ";
-		}
-		cout << endl;
-	}
+    // 8. Mostrar ruta con dos escalas
+    cout << "Ruta Lima -> Madrid (2 escalas):\n";
+    cout << g->obtenerRutaDosEscalas("Lima", "Madrid") << endl;
 
+    // 9. Caso que NO existe
+    cout << "\nArequipa -> Madrid directo ";
+    cout << (g->existeVueloDirecto("Arequipa", "Madrid") ? "SI" : "NO") << endl;
 
+    delete g;
 
-
-
-
-
-
-
-
-
-
+    /// <-
 
 
 	Application::EnableVisualStyles();

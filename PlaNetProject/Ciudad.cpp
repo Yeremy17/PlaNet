@@ -8,13 +8,23 @@ Ciudad::Ciudad(int capacidad)
     lista = new string[capacidad];
 }
 
+Ciudad::~Ciudad()
+{
+    delete[] lista;
+
+}
 void Ciudad::agregarCiudad(string nombre)
 {
     if (!this->existeCiudad(nombre))
     {
-        this->lista[this->cantidadDeCiudades] = nombre;
-        this->cantidadDeCiudades++;
+        if (this->cantidadDeCiudades < this->capacidadMaxDeCiudades)
+        {
+            this->lista[this->cantidadDeCiudades] = nombre;
+            this->cantidadDeCiudades++;
+        }
     }
+
+ 
 }
 
 int Ciudad::buscarIndiceDeCiudad(string nombre)

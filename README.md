@@ -6,3 +6,5 @@
 ## YEREMY
 ##### SALVADOR
 # JACK
+
+![UPC.](/PlaNetProject/upc_icon.png "Matematicas Discretas.")

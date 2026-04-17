@@ -11,6 +11,7 @@ private:
 
 public:
     Ciudad(int capacidad);
+    ~Ciudad();
 
     void agregarCiudad(string nombre);
     int buscarIndiceDeCiudad(string nombre);
