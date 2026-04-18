@@ -120,9 +120,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CargadorRutas.cpp" />
+    <ClCompile Include="Ciudad.cpp" />
+    <ClCompile Include="Grafo.cpp" />
+    <ClCompile Include="Matriz.cpp" />
     <ClCompile Include="PlaNetForm.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CargadorRutas.h" />
+    <ClInclude Include="Ciudad.h" />
+    <ClInclude Include="Grafo.h" />
+    <ClInclude Include="Matriz.h" />
     <ClInclude Include="PlaNetForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
