@@ -1,3 +1,2 @@
 ﻿  PlaNetForm.cpp
-  PlaNetForm.obj : se encontró un módulo MSIL; vinculación incremental deshabilitada para MSIL; ejecutando vínculo completo
-  PlaNetProject.vcxproj -> C:\Users\Melissa OM\source\repos\PlaNet2\x64\Debug\PlaNetProject.exe
+C:\Users\Melissa OM\source\repos\PlaNet2\PlaNetProject\PlaNetForm.cpp(7,10): error C1083: No se puede abrir el archivo incluir: 'CargadorRutas.h': No such file or directory
