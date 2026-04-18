@@ -78,22 +78,31 @@ string Grafo::obtenerRutaUnaEscala(string origen, string destino) // forma fea x
 {
 	if (ciudades->existeCiudad(origen) && ciudades->existeCiudad(destino))
 	{
+		string resultado = "";
+		bool encontrado = false;
+
 		for (int i = 0; i < ciudades->getCantidad(); i++)
 		{
-			if (matriz->getBinario(ciudades->buscarIndiceDeCiudad(origen), i) == 1 && matriz->getBinario(i, ciudades->buscarIndiceDeCiudad(destino)) == 1)
+			if (matriz->getBinario(ciudades->buscarIndiceDeCiudad(origen), i) == 1 && matriz->getBinario(i, ciudades->buscarIndiceDeCiudad(destino)) == 1 && i != ciudades->buscarIndiceDeCiudad(origen) &&
+				i != ciudades->buscarIndiceDeCiudad(destino))
 			{
-				return ciudades->getSegunIndice(ciudades->buscarIndiceDeCiudad(origen)) + " --> " +
+				resultado += ciudades->getSegunIndice(ciudades->buscarIndiceDeCiudad(origen)) + " --> " +
 					ciudades->getSegunIndice(i) + " --> " +
-					ciudades->getSegunIndice(ciudades->buscarIndiceDeCiudad(destino)) + "\n";
+					ciudades->getSegunIndice(ciudades->buscarIndiceDeCiudad(destino)) + "\r\n";
+
+				encontrado = true;
 			}
 		}
 
-		return "No existe";
-	}
-	else
-		return "No existe ps";
-}
 
+		if (encontrado) {
+
+			return resultado;
+		}
+		else return "No existe";
+	}
+	
+}
 string Grafo::obtenerRutaDosEscalas(string origen, string destino) 
 {
 	int i = ciudades->buscarIndiceDeCiudad(origen);
@@ -102,6 +111,11 @@ string Grafo::obtenerRutaDosEscalas(string origen, string destino)
 
 	if (ciudades->existeCiudad(origen) && ciudades->existeCiudad(destino))
 	{
+
+
+		string resultado = "";
+		bool encontrado = false;
+
 		for (int k = 0; k < ciudades->getCantidad(); k++)
 		{
 			for (int q = 0; q < ciudades->getCantidad(); q++)
@@ -109,20 +123,24 @@ string Grafo::obtenerRutaDosEscalas(string origen, string destino)
 				if (
 					matriz->getBinario(i, k) == 1 &&
 					matriz->getBinario(k, q) == 1 &&
-					matriz->getBinario(q, j) == 1
+					matriz->getBinario(q, j) == 1 && i != k && i != q && k != j && k != q && q != j
 					)
 				{
-					return ciudades->getSegunIndice(i) + " --> " +
+					resultado+= ciudades->getSegunIndice(i) + " --> " +
 						ciudades->getSegunIndice(k) + " --> " +
 						ciudades->getSegunIndice(q) + " --> " +
-						ciudades->getSegunIndice(j) + "\n";
+						ciudades->getSegunIndice(j) + "\r\n";
+					encontrado = true;
 				}
 			}
 		}
-		return "No existe";
+		if (encontrado) {
+
+			return resultado;
+		}
+		else return "No existe";
 	}
-	else
-		return "No existe pssss";
+	
 }
 
 Matriz* Grafo::getMatriz() {
