@@ -103,6 +103,79 @@ string Grafo::obtenerRutaUnaEscala(string origen, string destino) // forma fea x
 	}
 	
 }
+
+void Grafo::obtener1Escala(string origen, string destino) 
+{
+	int count = 0;
+	if (ciudades->existeCiudad(origen) && ciudades->existeCiudad(destino))
+	{
+		
+
+		for (int i = 0; i < ciudades->getCantidad(); i++)
+		{
+			if (matriz->getBinario(ciudades->buscarIndiceDeCiudad(origen), i) == 1 && matriz->getBinario(i, ciudades->buscarIndiceDeCiudad(destino)) == 1 && i != ciudades->buscarIndiceDeCiudad(origen) &&
+				i != ciudades->buscarIndiceDeCiudad(destino))
+			{
+				if (count == 5) {
+					break;
+				}
+				escalas1[count] = ciudades->getSegunIndice(i);
+				count++;
+			}
+		}
+
+		if (count < 5) {
+			escalas1[count + 1] = "";
+		}
+
+		
+
+	}
+
+}
+
+void Grafo::obtener2Escala(string origen, string destino)
+{
+	int i = ciudades->buscarIndiceDeCiudad(origen);
+	int j = ciudades->buscarIndiceDeCiudad(destino);
+
+	int count = 0;
+	if (ciudades->existeCiudad(origen) && ciudades->existeCiudad(destino))
+	{
+
+
+		
+
+		for (int k = 0; k < ciudades->getCantidad(); k++)
+		{
+			for (int q = 0; q < ciudades->getCantidad(); q++)
+			{
+				if (
+					matriz->getBinario(i, k) == 1 &&
+					matriz->getBinario(k, q) == 1 &&
+					matriz->getBinario(q, j) == 1 && i != k && i != q && k != j && k != q && q != j
+					)
+				{
+					if (count == 5) {
+						break;
+					}
+					escalas2[0][count] = ciudades->getSegunIndice(k);
+					escalas2[1][count] = ciudades->getSegunIndice(q);
+					count++;
+
+					
+				}
+			}
+		}
+		if (count < 5) {
+			escalas2[0][count + 1] = "";
+			escalas2[1][count + 1] = "";
+		}
+	}
+
+
+}
+
 string Grafo::obtenerRutaDosEscalas(string origen, string destino) 
 {
 	int i = ciudades->buscarIndiceDeCiudad(origen);
@@ -149,4 +222,11 @@ Matriz* Grafo::getMatriz() {
 }
 Ciudad* Grafo::getCiudades() {
 	return this->ciudades;
+}
+
+string Grafo::getEscala(int ind) {
+	return escalas1[ind];
+}
+string Grafo::getEscalas(int ind, int ind2) {
+	return escalas2[ind][ind2];
 }
