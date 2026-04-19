@@ -10,6 +10,7 @@ private:
 
 public:
     Grafo(int dato);
+    ~Grafo();
 
     void agregarNombreCiudad(string nombre);
     void agregarRuta(string origen, string destino);

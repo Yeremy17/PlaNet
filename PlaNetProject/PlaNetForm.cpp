@@ -1,10 +1,10 @@
 #include <windows.h>
 #include <iostream>
+#include <iomanip>
 #include "PlaNetForm.h"
-#include "Matriz.h"
-#include "Ciudad.h"
 #include "Grafo.h"
 #include "CargadorRutas.h"
+
 
 
 using namespace System;
@@ -30,28 +30,54 @@ void main()
 
     // 2. Agregar ciudades(en este caso está todo dentro de la clase)
     CargadorRutas::cargarTodo(g);
-
     cout << "Ciudades cargadas: " << g->getCiudades()->getCantidad() << endl;
-
 
     cout << "\n--- PRUEBA VUELO DIRECTO ---" << endl;
     cout << "Lima -> Cusco directo: ";
     cout << (g->existeVueloDirecto("Lima", "Cusco") ? "SI" : "NO") << endl;
-
     cout << "Lima -> Madrid directo: ";
     cout << (g->existeVueloDirecto("Lima", "Madrid") ? "SI" : "NO") << endl;
+
 
     cout << "\n--- PRUEBA UNA ESCALA ---" << endl;
     cout << "Lima -> Bogota con 1 escala: ";
     cout << (g->existeUnaEscala("Lima", "Bogota") ? "SI" : "NO") << endl;
-
     cout << g->obtenerRutaUnaEscala("Lima", "Bogota") << endl;
+
 
     cout << "\n--- PRUEBA DOS ESCALAS ---" << endl;
     cout << "Lima -> Madrid con 2 escalas: ";
     cout << (g->existeDosEscalas("Lima", "Madrid") ? "SI" : "NO") << endl;
-
     cout << g->obtenerRutaDosEscalas("Lima", "Madrid") << endl;
+
+    // 3. Imprimir matriz
+    cout << "\n--- MATRIZ DE ADYACENCIA ---\n" << endl;
+
+    cout << setw(25) << " ";
+
+    // encabezado
+    cout << "  ";
+
+    for (int k = 0; k < g->getCiudades()->getCantidad(); k++)
+    {
+        string nombre = g->getCiudades()->getSegunIndice(k);
+        cout << nombre[0] << " ";
+    }
+
+    cout << endl;
+
+    // lateral
+    for (int i = 0; i < g->getCiudades()->getCantidad(); i++)
+    {   
+        cout << left << setw(25) << g->getCiudades()->getSegunIndice(i);
+        cout << "[ ";
+        for (int j = 0; j < g->getCiudades()->getCantidad(); j++)
+        {
+            cout << g->getMatriz()->getBinario(i,j) << " ";
+        }
+        cout << "]" << endl;
+    }
+
 
     delete g;
 

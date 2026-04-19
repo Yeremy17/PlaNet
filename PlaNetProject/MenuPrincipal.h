@@ -350,13 +350,11 @@ namespace PlaNetProject {
 		{
 			TxtResultado->Text += "Si existe vuelo con una escala.\r\n";
 			TxtResultado->Text += msclr::interop::marshal_as<String^>(grafo->obtenerRutaUnaEscala(origen, destino));
-				"\r\n";
 		}
 		else
 		{
 			TxtResultado->Text += "No existe vuelo con una escala.\r\n";
-
-
+		
 		}
 
 
@@ -364,14 +362,12 @@ namespace PlaNetProject {
 		{
 			TxtResultado->Text += "Si existe vuelo con dos escalas.\r\n";
 			TxtResultado->Text += msclr::interop::marshal_as<String^>(grafo->obtenerRutaDosEscalas(origen, destino));
-			"\r\n";
 		}
 		else
 		{
 			TxtResultado->Text += "No existe vuelo con dos escalas.\r\n";
+		
 		}
-
-
 
 
 

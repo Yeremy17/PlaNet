@@ -1,5 +1,5 @@
 #include "CargadorRutas.h"
-void CargadorRutas::cargarTodo(Grafo* grafo)
+void CargadorRutas::cargarTodo(Grafo* grafo)  // para cargar todas las ciudades, rutas Avianca y rutas TACA, al iniciar el programa
 {
     cargarCiudades(grafo);
     cargarRutasTACA(grafo);
