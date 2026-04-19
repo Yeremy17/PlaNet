@@ -1,11 +1,11 @@
 ###### PlaNet: Análisis de rutas aéreas mediante relaciones y matrices de conectividad
 
-##### Authors
+###### Authors
 ### SAMUEL
 ### MELISSA
 ### YEREMY
 ### SALVADOR
-## JACK
+### JACK
 
 ###### Files
 - [PlaNetForm.h](PlaNetProject/PlaNetForm.h)
