@@ -120,20 +120,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CargadorRutas.cpp" />
+    <ClCompile Include="Ciudad.cpp" />
+    <ClCompile Include="Grafo.cpp" />
+    <ClCompile Include="Matriz.cpp" />
+    <ClCompile Include="MenuPrincipal.cpp" />
     <ClCompile Include="PlaNetForm.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CargadorRutas.h" />
+    <ClInclude Include="Ciudad.h" />
+    <ClInclude Include="Grafo.h" />
+    <ClInclude Include="Matriz.h" />
+    <ClInclude Include="MenuPrincipal.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="PlaNetForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="MenuPrincipal.resx">
+      <DependentUpon>MenuPrincipal.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PlaNetForm.resx">
       <DependentUpon>PlaNetForm.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.gitignore" />
+    <None Include="..\README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

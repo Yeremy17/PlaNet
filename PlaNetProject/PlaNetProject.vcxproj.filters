@@ -18,14 +18,35 @@
     <ClCompile Include="PlaNetForm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Matriz.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ciudad.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Grafo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlaNetForm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Matriz.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ciudad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Grafo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.gitignore">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\README.md">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
