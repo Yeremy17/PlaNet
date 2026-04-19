@@ -1,19 +1,19 @@
 ###### PlaNet: Análisis de rutas aéreas mediante relaciones y matrices de conectividad
-# Authors
 
+###### Authors
 ### SAMUEL
 # MELISSA
 ## YEREMY
 ##### SALVADOR
 # JACK
 
+###### Files
+- [PlaNetForm.h](PlaNetProject/PlaNetForm.h)
+- [Matriz.h](PlaNetProject/Matriz.h)
+- [Ciudad.h](PlaNetProject/Ciudad.h)
+- [Grafo.h](PlaNetProject/Grafo.h)
+- [CargadorRutas.h](PlaNetProject/CargadorRutas.h)
+- [MenuPrincipal.h](PlaNetProject/MenuPrincipal.h)
+
+
 ![UPC.](/PlaNetProject/upc_icon.png "Matematicas Discretas.")
-
-## Archivos principales
-
-- [PlaNetForm.h](PlaNetForm.h)
-- [Matriz.h](Matriz.h)
-- [Ciudad.h](Ciudad.h)
-- [Grafo.h](Grafo.h)
-- [CargadorRutas.h](CargadorRutas.h)
-- [MenuPrincipal.h](MenuPrincipal.h)
