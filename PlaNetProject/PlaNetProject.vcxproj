@@ -129,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CargadorRutas.h" />
+    <ClInclude Include="Circulo.h" />
     <ClInclude Include="Ciudad.h" />
     <ClInclude Include="Grafo.h" />
     <ClInclude Include="Matriz.h" />
@@ -138,6 +139,7 @@
     <ClInclude Include="PlaNetForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Red.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MenuPrincipal.resx">

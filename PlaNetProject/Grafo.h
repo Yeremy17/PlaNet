@@ -8,6 +8,9 @@ private:
 	Matriz* matriz;
 	Ciudad* ciudades;
 
+    string escalas1[5];
+    string escalas2[2][5];
+
 public:
     Grafo(int dato);
     ~Grafo();
@@ -22,7 +25,12 @@ public:
     string obtenerRutaUnaEscala(string origen, string destino);
     string obtenerRutaDosEscalas(string origen, string destino);
 
+    void obtener1Escala(string origen, string destino);
+    void obtener2Escala(string origen, string destino);
+
     Matriz* getMatriz();
     Ciudad* getCiudades();
+    string getEscala(int ind);
+    string getEscalas(int ind, int ind2);
 };
 

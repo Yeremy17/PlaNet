@@ -117,4 +117,56 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Leyenda de Ciudades:
+[1] Arequipa 
+[2] Armenia 
+[3] Barcelona 
+[4] Barrancabermeja 
+[5] Barranquilla 
+[6] Belice 
+[7] Bogota 
+[8] Bucaramanga 
+[9] Cali 
+[10] Cancun 
+[11] Caracas 
+[12] Cartagena 
+[13] Chiclayo 
+[14] Ciudad de Guatemala 
+[15] Ciudad de Mexico 
+[16] Ciudad de Panama 
+[17] Cucuta 
+[18] Cusco 
+[19] Flores 
+[20] Florencia 
+[21] Guayaquil 
+[22] Ibague 
+[23] Iquitos 
+[24] Juliaca 
+[25] La Ceiba 
+[26] La Habana 
+[27] Leticia 
+[28] Liberia 
+[29] Lima 
+[30] Londres 
+[31] Madrid 
+[32] Managua 
+[33] Manizales 
+[34] Medellin 
+[35] Monteria 
+[36] Neiva 
+[37] Pasto 
+[38] Pereira 
+[39] Piura 
+[40] Popayan 
+[41] Puerto Maldonado 
+[42] Punta Cana 
+[43] Quito 
+[44] Riohacha 
+[45] Roatan 
+[46] San Andres 
+[47] San Jose de Costa Rica 
+[48] San Juan 
+</value>
+  </data>
 </root>
