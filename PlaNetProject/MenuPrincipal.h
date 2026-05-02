@@ -753,7 +753,7 @@ private: System::Void Btn2Escalas_Click(System::Object^ sender, System::EventArg
 		red->dibujarConexionita(g, escala2, destino, Color::Green, 2);
 		red->Generacion(g, this->Font);
 		count2++;
-		if (count2 == 5) {
+		if (count2 > 5) {
 			count2 = 0;
 		}
 	}
