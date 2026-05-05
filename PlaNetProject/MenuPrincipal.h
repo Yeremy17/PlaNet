@@ -1,15 +1,18 @@
 #pragma once
-
 #define IServiceProvider IWindowsServiceProvider 
-#include <windows.h> 
+#include <windows.h>
+#include <iostream>
+#include <iomanip>
 #undef IServiceProvider
-
 
 #include "Grafo.h"
 #include "CargadorRutas.h"
-#include "Circulo.h"
 #include "Red.h"
+
 #include <msclr/marshal_cppstd.h>
+
+using std::cout; using std::cin; using std::string;
+
 namespace PlaNetProject {
 
 	using namespace System;
@@ -19,9 +22,6 @@ namespace PlaNetProject {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	/// <summary>
-	/// Summary for MenuPrincipal
-	/// </summary>
 	public ref class MenuPrincipal : public System::Windows::Forms::Form
 	{
 	public:
@@ -34,42 +34,41 @@ namespace PlaNetProject {
 			grafo = new Grafo(59);
 			CargadorRutas::cargarTodo(grafo);
 			red = gcnew Red();
-			string origenN;
-			string destinoN;
+
 		}
 
 	protected:
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
+
 		~MenuPrincipal()
 		{
+			if (grafo != nullptr)
+			{
+				delete grafo;
+				grafo = nullptr;
+			}
+
 			if (components)
 			{
 				delete components;
 			}
 		}
+
+		int count1 = 0, count2 = 0;
+		bool rutasEscalaCargadas = false;	// saber si hay una ruta cargada ahora o no
+		String^ origenConsultaActual = "";	// facilitar tener una variable del nombre de la ciuadad que busque
+		String^ destinoConsultaActual = "";	// facilitar tener una variable del nombre de la ciuadad que busque
+
+		Red^ red;
+		Grafo* grafo;
+
 	private: System::Windows::Forms::GroupBox^ GrbConsultas;
-	protected:
 	private: System::Windows::Forms::Label^ LblDestino;
 	private: System::Windows::Forms::Label^ LblOrigen;
 	private: System::Windows::Forms::ComboBox^ CmbOrigen;
-
 	private: System::Windows::Forms::Button^ BtnBuscar;
 	private: System::Windows::Forms::ComboBox^ CmbDestino;
 	private: System::Windows::Forms::TextBox^ TxtResultado;
 	private: System::ComponentModel::IContainer^ components;
-
-
-
-
-	protected:
-
-	private:
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-
 	private: System::Windows::Forms::GroupBox^ GrbNuevaRuta;
 	private: System::Windows::Forms::Button^ BtnAñadir;
 	private: System::Windows::Forms::Label^ LblOrigenN;
@@ -85,23 +84,14 @@ namespace PlaNetProject {
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::GroupBox^ groupBox2;
-
-		   int count1 = 0, count2 = 0;
-
-		   Grafo* grafo;
 	private: System::Windows::Forms::Label^ label3;
 	private: System::Windows::Forms::Label^ label4;
 	private: System::Windows::Forms::Button^ btnDirecto;
 	private: System::Windows::Forms::Button^ Btn2Escalas;
-
+	private: System::Windows::Forms::Button^ btnVerMatriz;
 	private: System::Windows::Forms::Button^ Btn1Escala;
 
-		   Red^ red;
 #pragma region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MenuPrincipal::typeid));
@@ -132,6 +122,7 @@ namespace PlaNetProject {
 			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->btnVerMatriz = (gcnew System::Windows::Forms::Button());
 			this->GrbConsultas->SuspendLayout();
 			this->groupBox1->SuspendLayout();
 			this->GrbNuevaRuta->SuspendLayout();
@@ -376,6 +367,7 @@ namespace PlaNetProject {
 			// 
 			// GrbNuevaRuta
 			// 
+			this->GrbNuevaRuta->Controls->Add(this->btnVerMatriz);
 			this->GrbNuevaRuta->Controls->Add(this->TxtResultadoN);
 			this->GrbNuevaRuta->Controls->Add(this->BtnAñadir);
 			this->GrbNuevaRuta->Controls->Add(this->LblOrigenN);
@@ -395,7 +387,7 @@ namespace PlaNetProject {
 			// 
 			this->TxtResultadoN->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->TxtResultadoN->Location = System::Drawing::Point(20, 185);
+			this->TxtResultadoN->Location = System::Drawing::Point(20, 170);
 			this->TxtResultadoN->Multiline = true;
 			this->TxtResultadoN->Name = L"TxtResultadoN";
 			this->TxtResultadoN->ReadOnly = true;
@@ -480,9 +472,9 @@ namespace PlaNetProject {
 			// 
 			this->groupBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->groupBox2->Location = System::Drawing::Point(550, 28);
+			this->groupBox2->Location = System::Drawing::Point(533, 28);
 			this->groupBox2->Name = L"groupBox2";
-			this->groupBox2->Size = System::Drawing::Size(570, 650);
+			this->groupBox2->Size = System::Drawing::Size(587, 666);
 			this->groupBox2->TabIndex = 7;
 			this->groupBox2->TabStop = false;
 			this->groupBox2->Text = L"Digrafo";
@@ -507,11 +499,21 @@ namespace PlaNetProject {
 				L"o \r\n[53] Tegucigalpa \r\n[54] Trujillo \r\n[55] Tumaco \r\n[56] Valledupar \r\n[57] Vill"
 				L"avicencio \r\n[58] Yopal\r\n";
 			// 
+			// btnVerMatriz
+			// 
+			this->btnVerMatriz->Location = System::Drawing::Point(187, 234);
+			this->btnVerMatriz->Name = L"btnVerMatriz";
+			this->btnVerMatriz->Size = System::Drawing::Size(108, 39);
+			this->btnVerMatriz->TabIndex = 13;
+			this->btnVerMatriz->Text = L"Ver Matriz";
+			this->btnVerMatriz->UseVisualStyleBackColor = true;
+			this->btnVerMatriz->Click += gcnew System::EventHandler(this, &MenuPrincipal::btnVerMatriz_Click);
+			// 
 			// MenuPrincipal
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1436, 706);
+			this->ClientSize = System::Drawing::Size(1436, 740);
 			this->Controls->Add(this->label4);
 			this->Controls->Add(this->label3);
 			this->Controls->Add(this->groupBox2);
@@ -532,6 +534,30 @@ namespace PlaNetProject {
 		}
 #pragma endregion
 
+	private: void actualizarRutasEscalaSiCambio(string origen, string destino) {
+		String^ origenActual = msclr::interop::marshal_as<String^>(origen);
+		String^ destinoActual = msclr::interop::marshal_as<String^>(destino);
+		if (!rutasEscalaCargadas || origenConsultaActual != origenActual || destinoConsultaActual != destinoActual)	// si hay una nueva consulta que la anterior
+		{
+			// solo reiniciamos el ciclo cuando cambia la consulta actual
+			grafo->obtener1Escala(origen, destino);	// obtenemos las ciudades que representan escala uno al momento de buscar
+			grafo->obtener2Escala(origen, destino); // obtenemos las ciudades que representan escala dos al momento de buscar
+			origenConsultaActual = origenActual;	// ahora consutla es igual al origen que ingresamos
+			destinoConsultaActual = destinoActual;
+			count1 = 0;	// contador se reseta
+			count2 = 0;
+			rutasEscalaCargadas = true;	// ya cargo rutas true
+		}
+	}
+
+	private: void limpiarDibujo() {
+		Graphics^ g = this->groupBox2->CreateGraphics();
+		// limpiar el fondo con el color del groupBox
+		g->Clear(this->groupBox2->BackColor);
+		red->Conexiones(g);
+		red->Generacion(g, this->Font);
+		delete g;
+	}
 
 	private: System::Void BtnBuscar_Click(System::Object^ sender, System::EventArgs^ e) {
 
@@ -594,13 +620,18 @@ namespace PlaNetProject {
 			red->Generacion(g, this->Font);
 		}
 
+		// actualizar o resetear cada vez que presiona buscar
+		grafo->obtener1Escala(origen, destino);
+		grafo->obtener2Escala(origen, destino);
+		origenConsultaActual = msclr::interop::marshal_as<String^>(origen);
+		destinoConsultaActual = msclr::interop::marshal_as<String^>(destino);
 		count1 = 0;
 		count2 = 0;
+		rutasEscalaCargadas = true;
 
 	}
 
 	private: System::Void BtnAñadir_Click(System::Object^ sender, System::EventArgs^ e) {
-
 
 		if (CmbOrigenN->SelectedItem == nullptr || CmbDestinoN->SelectedItem == nullptr)
 		{
@@ -614,15 +645,11 @@ namespace PlaNetProject {
 			return;
 		}
 
-
-
 		string origenN = msclr::interop::marshal_as<std::string>(CmbOrigenN->SelectedItem->ToString());
 		string destinoN = msclr::interop::marshal_as<std::string>(CmbDestinoN->SelectedItem->ToString());
 
-
 		grafo->agregarRuta(origenN, destinoN);
 
-		
 		TxtResultadoN->Text = "Ruta agregada con exito.";
 
 		/*
@@ -633,8 +660,8 @@ namespace PlaNetProject {
 
 	}
 
-
 private: System::Void btnDirecto_Click(System::Object^ sender, System::EventArgs^ e) {
+	
 	if (CmbOrigen->SelectedItem == nullptr || CmbDestino->SelectedItem == nullptr)
 	{
 		return;
@@ -645,26 +672,29 @@ private: System::Void btnDirecto_Click(System::Object^ sender, System::EventArgs
 		return;
 	}
 
-
 	string origen = msclr::interop::marshal_as<std::string>(CmbOrigen->SelectedItem->ToString());
 	string destino = msclr::interop::marshal_as<std::string>(CmbDestino->SelectedItem->ToString());
 
+	count1 = 0;  // al presionar directo, ambos se resetean
+	count2 = 0;
+
+	rutasEscalaCargadas = false;
+
+	limpiarDibujo(); // limpia primero====================================
 	if (grafo->existeVueloDirecto(origen, destino))
 	{
 		Graphics^ g = this->groupBox2->CreateGraphics();
 
-
 		red->Conexiones(g);
-		red->dibujarConexionita(g, origen, destino, Color::Green, 2);
+		red->dibujarConexionita(g, origen, destino, Color::Blue, 2);
 		red->Generacion(g, this->Font);
-	}
-	else
-	{
-		return;
-	}
 
+	} else { 
+		return; 
+	}
 
 }
+
 private: System::Void MenuPrincipal_Load(System::Object^ sender, System::EventArgs^ e) {
 	Graphics^ g = this->groupBox2->CreateGraphics();
 
@@ -672,6 +702,7 @@ private: System::Void MenuPrincipal_Load(System::Object^ sender, System::EventAr
 	red->Conexiones(g);
 	red->Generacion(g, this->Font);
 }
+
 private: System::Void Btn1Escala_Click(System::Object^ sender, System::EventArgs^ e) {
 	if (CmbOrigen->SelectedItem == nullptr || CmbDestino->SelectedItem == nullptr)
 	{
@@ -683,16 +714,16 @@ private: System::Void Btn1Escala_Click(System::Object^ sender, System::EventArgs
 		return;
 	}
 
-
 	string origen = msclr::interop::marshal_as<std::string>(CmbOrigen->SelectedItem->ToString());
 	string destino = msclr::interop::marshal_as<std::string>(CmbDestino->SelectedItem->ToString());
 
+	actualizarRutasEscalaSiCambio(origen, destino);	// llamamos a la funcion ya q aqui tenemos mas rutas y cont sube
+	count2 = 0;  // resetear el otro contador al cambiar de boton
+
 	if (grafo->existeUnaEscala(origen, destino))
 	{
-
+		limpiarDibujo(); // limpia primero====================================
 		Graphics^ g = this->groupBox2->CreateGraphics();
-		
-		grafo->obtener1Escala(origen,destino);
 		
 		string escala = grafo->getEscala(count1);
 
@@ -705,7 +736,7 @@ private: System::Void Btn1Escala_Click(System::Object^ sender, System::EventArgs
 		red->dibujarConexionita(g, escala, destino, Color::Green, 2);
 		red->Generacion(g, this->Font);
 		count1++;
-		if (count1 > 5) {
+		if (count1 == 15) {	// el arreglo es de tamño 5, asi que solo tiene 4 indices, 5to indice ya no tomaria y resetea
 			count1 = 0;
 		}
 	}
@@ -714,6 +745,7 @@ private: System::Void Btn1Escala_Click(System::Object^ sender, System::EventArgs
 		return;
 	}
 }
+
 private: System::Void Btn2Escalas_Click(System::Object^ sender, System::EventArgs^ e) {
 	if (CmbOrigen->SelectedItem == nullptr || CmbDestino->SelectedItem == nullptr)
 	{
@@ -725,16 +757,16 @@ private: System::Void Btn2Escalas_Click(System::Object^ sender, System::EventArg
 		return;
 	}
 
-
 	string origen = msclr::interop::marshal_as<std::string>(CmbOrigen->SelectedItem->ToString());
 	string destino = msclr::interop::marshal_as<std::string>(CmbDestino->SelectedItem->ToString());
 
+	actualizarRutasEscalaSiCambio(origen, destino);	// llamamos a la funcion 
+	count1 = 0;  // resetear el otro contador al cambiar de boton
+
 	if (grafo->existeDosEscalas(origen, destino))
 	{
-
+		limpiarDibujo(); // limpia primero====================================
 		Graphics^ g = this->groupBox2->CreateGraphics();
-
-		grafo->obtener2Escala(origen, destino);
 
 		string escala1 = grafo->getEscalas(0,count2);
 		string escala2 = grafo->getEscalas(1,count2);
@@ -745,12 +777,12 @@ private: System::Void Btn2Escalas_Click(System::Object^ sender, System::EventArg
 			escala2 = grafo->getEscalas(1, count2);
 		}
 		red->Conexiones(g);
-		red->dibujarConexionita(g, origen, escala1, Color::Green, 2);
-		red->dibujarConexionita(g, escala1, escala2, Color::Green, 2);
-		red->dibujarConexionita(g, escala2, destino, Color::Green, 2);
+		red->dibujarConexionita(g, origen, escala1, Color::Red, 2);
+		red->dibujarConexionita(g, escala1, escala2, Color::Red, 2);
+		red->dibujarConexionita(g, escala2, destino, Color::Red, 2);
 		red->Generacion(g, this->Font);
 		count2++;
-		if (count2 == 5) {
+		if (count2 == 15) {
 			count2 = 0;
 		}
 	}
@@ -759,5 +791,77 @@ private: System::Void Btn2Escalas_Click(System::Object^ sender, System::EventArg
 		return;
 	}
 }
+
+private: System::Void btnVerMatriz_Click(System::Object^ sender, System::EventArgs^ e) {
+	AllocConsole();
+
+	FILE* fp;
+	freopen_s(&fp, "CONOUT$", "w", stdout);
+	freopen_s(&fp, "CONIN$", "r", stdin);
+
+
+	/// ->
+
+	//BORRA DSPS ES PRUEBA DE CONSOLITA
+	cout << "=== PRUEBA PLANET ===" << endl;
+
+	// 1. Crear grafo con capacidad
+	Grafo* grafitoMatriz = new Grafo(100);
+
+	// 2. Agregar ciudades(en este caso está todo dentro de la clase)
+	CargadorRutas::cargarTodo(grafitoMatriz);
+	cout << "Ciudades cargadas: " << grafitoMatriz->getCiudades()->getCantidad() << endl;
+
+	cout << "\n--- PRUEBA VUELO DIRECTO ---" << endl;
+	cout << "Lima -> Cusco directo: ";
+	cout << (grafitoMatriz->existeVueloDirecto("Lima", "Cusco") ? "SI" : "NO") << endl;
+	cout << "Lima -> Madrid directo: ";
+	cout << (grafitoMatriz->existeVueloDirecto("Lima", "Madrid") ? "SI" : "NO") << endl;
+
+
+	cout << "\n--- PRUEBA UNA ESCALA ---" << endl;
+	cout << "Lima -> Bogota con 1 escala: ";
+	cout << (grafitoMatriz->existeUnaEscala("Lima", "Bogota") ? "SI" : "NO") << endl;
+	cout << grafitoMatriz->obtenerRutaUnaEscala("Lima", "Bogota") << endl;
+
+
+	cout << "\n--- PRUEBA DOS ESCALAS ---" << endl;
+	cout << "Lima -> Madrid con 2 escalas: ";
+	cout << (grafitoMatriz->existeDosEscalas("Lima", "Madrid") ? "SI" : "NO") << endl;
+	cout << grafitoMatriz->obtenerRutaDosEscalas("Lima", "Madrid") << endl;
+
+	// 3. Imprimir matriz
+	cout << "\n--- MATRIZ DE ADYACENCIA ---\n" << endl;
+
+	cout << setw(25) << " ";
+
+	// encabezado
+	cout << "  ";
+
+	for (int k = 0; k < grafitoMatriz->getCiudades()->getCantidad(); k++)
+	{
+		string nombre = grafitoMatriz->getCiudades()->getSegunIndice(k);
+		cout << nombre[0] << " ";
+	}
+
+	cout << endl;
+
+	// lateral
+	for (int i = 0; i < grafitoMatriz->getCiudades()->getCantidad(); i++)
+	{
+		cout << left << setw(25) << grafitoMatriz->getCiudades()->getSegunIndice(i);
+		cout << "[ ";
+		for (int j = 0; j < grafitoMatriz->getCiudades()->getCantidad(); j++)
+		{
+			cout << grafitoMatriz->getMatriz()->getBinario(i, j) << " ";
+		}
+		cout << "]" << endl;
+	}
+
+
+	delete grafitoMatriz;
+
+}
+
 };
 }

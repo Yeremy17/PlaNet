@@ -8,8 +8,8 @@ private:
 	Matriz* matriz;
 	Ciudad* ciudades;
 
-    string escalas1[5];
-    string escalas2[2][5];
+    string escalas1[15];
+    string escalas2[2][15];
 
 public:
     Grafo(int dato);

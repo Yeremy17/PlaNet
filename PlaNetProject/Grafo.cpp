@@ -54,10 +54,29 @@ bool Grafo::existeUnaEscala(string origen, string destino)
 		return false;
 	}
 
-	bool existe = A2->getBinario(i, j);		// obtener valor
+	if (A2->getBinario(i, j) == 0)
+	{
+		delete A2;
+		return false;
+	}
+
 	delete A2;
 
-	return existe;
+	// validar ruta real
+	for (int k = 0; k < ciudades->getCantidad(); k++)
+	{
+		if (
+			matriz->getBinario(i, k) == 1 &&
+			matriz->getBinario(k, j) == 1 &&
+			k != i &&
+			k != j
+			)
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
 bool Grafo::existeDosEscalas(string origen, string destino)
@@ -184,6 +203,11 @@ void Grafo::obtener1Escala(string origen, string destino)
 	int count = 0;
 	if (ciudades->existeCiudad(origen) && ciudades->existeCiudad(destino))
 	{
+		// limpiar cada ves que quiero obtener la escala , para eliminar resultados anteriores y se borren las escalas viejas
+		for (int i = 0; i < 15; i++) // 5 noma, indice 4
+		{
+			escalas1[i] = "";
+		}
 
 
 		for (int i = 0; i < ciudades->getCantidad(); i++)
@@ -191,20 +215,13 @@ void Grafo::obtener1Escala(string origen, string destino)
 			if (matriz->getBinario(ciudades->buscarIndiceDeCiudad(origen), i) == 1 && matriz->getBinario(i, ciudades->buscarIndiceDeCiudad(destino)) == 1 && i != ciudades->buscarIndiceDeCiudad(origen) &&
 				i != ciudades->buscarIndiceDeCiudad(destino))
 			{
-				if (count == 5) {
+				if (count == 15) {
 					break;
 				}
 				escalas1[count] = ciudades->getSegunIndice(i);
 				count++;
 			}
 		}
-
-		if (count < 5) {
-			escalas1[count + 1] = "";
-		}
-
-
-
 	}
 
 }
@@ -217,9 +234,12 @@ void Grafo::obtener2Escala(string origen, string destino)
 	int count = 0;
 	if (ciudades->existeCiudad(origen) && ciudades->existeCiudad(destino))
 	{
-
-
-
+		// limpiar cada ves que quiero obtener la escala , para eliminar resultados anteriores y se borren las escalas viejas
+		for (int k = 0; k < 15; k++)
+		{
+			escalas2[0][k] = "";	// usamos en ves de la condcion:  
+			escalas2[1][k] = "";	//if (count < 5 | 15) { escalas1[count] = ""; } sin count + 1
+		}
 
 		for (int k = 0; k < ciudades->getCantidad(); k++)
 		{
@@ -231,20 +251,15 @@ void Grafo::obtener2Escala(string origen, string destino)
 					matriz->getBinario(q, j) == 1 && i != k && i != q && k != j && k != q && q != j
 					)
 				{
-					if (count == 5) {
+					if (count == 15) {
 						break;
 					}
 					escalas2[0][count] = ciudades->getSegunIndice(k);
 					escalas2[1][count] = ciudades->getSegunIndice(q);
 					count++;
 
-
 				}
 			}
-		}
-		if (count < 5) {
-			escalas2[0][count + 1] = "";
-			escalas2[1][count + 1] = "";
 		}
 	}
 
